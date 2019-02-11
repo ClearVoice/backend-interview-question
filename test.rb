@@ -18,8 +18,9 @@
 # be included in the result.
 #
 # Step 2:
-# Create a new way to organize parameters that are being sent to update an
-# existing Publication.
+# Now create a shared way to organize parameters that are being sent to update an
+# existing Publication in addition to the parameters sent for an Assignment in
+# the previous step.
 ###
 
 ###
