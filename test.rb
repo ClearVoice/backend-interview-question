@@ -1,5 +1,3 @@
-require 'rspec/autorun'
-
 ###
 # The following is a toy application consisting of Categories, Writers,
 # Assignments, and Publications. Modules have been provided below with a
