@@ -176,7 +176,7 @@ RSpec.describe Parameterizer do
       expect(Parameterizer.organize(params)).to eq({
         id: 2,
         categories: [CATEGORIES[2]],
-        owner: USER[1],
+        owner: USERS[1],
         url: 'https://differenturl.com'
       })
     end
