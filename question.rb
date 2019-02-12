@@ -153,7 +153,9 @@ RSpec.describe Parameterizer do
       params = {
         id: 1,
         name: '10 Things That Bug You About Listicle Titles',
-        keywords: ['Energetic']
+        keywords: ['Energetic'],
+        # price: 10,
+        # content_type: 'Article'
       }
       expect(Parameterizer.organize(params)).to eq({
         id: 1,
