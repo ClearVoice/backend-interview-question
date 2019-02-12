@@ -2,25 +2,28 @@
 # The following is a toy application consisting of Categories, Writers,
 # Assignments, and Publications. Modules have been provided below with a
 # similar interface as ActiveRecord with some hard coded data to avoid
-# the need for a DB.
+# the need for a database.
 #
 # In this scenario, you are receiving parameters sent from a client
 # that you need to change into a consistent and usable object. By the time
 # the parameters have reached this part in the request, we are assuming
 # that we have removed any potentially dangerous or unexpected parameters.
 #
+#
 # Step 1:
-# Flesh out `Parameterizer.organize` in order to satisfy the tests below. In
-# this example, we want to return an object with a key rename as well as
-# turning IDs into the objects stored in the mock database.
+# The parameters you are receiving are going to be used to update an
+# Assignment record in the database.  Flesh out `Parameterizer.organize`
+# in order to satisfy the tests below. In this example, we want to return
+# an object with a key rename as well as turning IDs into the objects stored
+# in the mock database.
 #
 # If a new parameter is passed into this parameterizer, it should automatically
 # be included in the result.
 #
 # Step 2:
-# Now create a shared way to organize parameters that are being sent to update an
-# existing Publication in addition to the parameters sent for an Assignment in
-# the previous step.
+# Imagine this test is setup for a different endpoint that handles parameters
+# dealing with updating a Publication. Create a way to organize these new parameters
+# for Publications that uses shared logic with the solution from Step 1.
 ###
 
 ###
@@ -66,7 +69,7 @@ PUBLICATIONS = {
   }
 }
 
-WRITERS = {
+USERS = {
   1 => {id: 1, name: 'Harry'},
   2 => {id: 2, name: 'Ron'},
   3 => {id: 3, name: 'Hermoine'}
@@ -76,22 +79,24 @@ WRITERS = {
 # Fake "ActiveRecord" models
 ###
 
-module Category
+class Category
   def self.find(id)
     CATEGORIES[id]
   end
 
   def self.where(ids)
+    return nil if ids.nil?
     ids.map(&method(:find))
   end
 end
 
-module Writer
+class User
   def self.find(id)
-    WRITERS[id]
+    USERS[id]
   end
 
   def self.where(ids)
+    return nil if ids.nil?
     ids.map(&method(:find))
   end
 end
@@ -100,8 +105,8 @@ end
 # Parameterizer
 ###
 
-# Doesn't need to be a module! Make it however you like.
-module Parameterizer
+# Doesn't need to be a class! Make it however you like.
+class Parameterizer
   def self.organize(params)
   end
 end
@@ -121,7 +126,7 @@ RSpec.describe Parameterizer do
         categories: [CATEGORIES[1], CATEGORIES[2], CATEGORIES[3]],
         description: params[:description],
         title: params[:name],
-        writer: WRITERS[3]
+        writer: USERS[3]
       })
     end
 
@@ -140,7 +145,20 @@ RSpec.describe Parameterizer do
         categories: [CATEGORIES[1], CATEGORIES[2], CATEGORIES[3]],
         guidelines: nil,
         title: params[:name],
-        writer: WRITERS[3]
+        writer: USERS[3]
+      })
+    end
+
+    it 'passes new parameters through without needing to change the code' do
+      params = {
+        id: 1,
+        name: '10 Things That Bug You About Listicle Titles',
+        keywords: ['Energetic']
+      }
+      expect(Parameterizer.organize(params)).to eq({
+        id: 1,
+        title: params[:name],
+        keywords: params[:keywords]
       })
     end
   end
@@ -150,11 +168,13 @@ RSpec.describe Parameterizer do
       params = {
         id: 2,
         category_ids: [2],
+        owner_id: 1,
         url: 'https://differenturl.com'
       }
       expect(Parameterizer.organize(params)).to eq({
         id: 2,
         categories: [CATEGORIES[2]],
+        owner: USER[1],
         url: 'https://differenturl.com'
       })
     end
