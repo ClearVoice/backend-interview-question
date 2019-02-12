@@ -79,7 +79,7 @@ USERS = {
 # Fake "ActiveRecord" models
 ###
 
-class Category
+module Category
   def self.find(id)
     CATEGORIES[id]
   end
@@ -90,7 +90,7 @@ class Category
   end
 end
 
-class User
+module User
   def self.find(id)
     USERS[id]
   end
@@ -105,8 +105,8 @@ end
 # Parameterizer
 ###
 
-# Doesn't need to be a class! Make it however you like.
-class Parameterizer
+# Doesn't need to be a module! Make it however you like.
+module Parameterizer
   def self.organize(params)
   end
 end
