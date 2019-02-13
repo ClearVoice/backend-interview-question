@@ -62,13 +62,15 @@ PUBLICATIONS = {
     id: 1,
     name: 'ClearVoice',
     url: 'https://www.clearvoice.com',
-    category_ids: []
+    category_ids: [],
+    owner_id: 3
   },
   2 => {
     id: 2,
     name: 'ESPN',
     url: 'http://www.espn.com',
-    category_ids: []
+    category_ids: [],
+    owner_id: 3
   }
 }
 
