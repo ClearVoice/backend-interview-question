@@ -1,4 +1,5 @@
 require 'pry'
+require 'active_support'
 
 ###
 # The following is a toy application consisting of Categories, Writers,
