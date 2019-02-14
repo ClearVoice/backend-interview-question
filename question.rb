@@ -135,7 +135,7 @@ RSpec.describe Parameterizer do
       })
     end
 
-    it 'avoids returning `nil` unless explicitly specified' do
+    xit 'avoids returning `nil` unless explicitly specified' do
       params = {
         id: 1,
         category_ids: [1, 2, 3],
@@ -154,7 +154,7 @@ RSpec.describe Parameterizer do
       })
     end
 
-    it 'passes new parameters through without needing to change the code' do
+    xit 'passes new parameters through without needing to change the code' do
       params = {
         id: 1,
         name: '10 Things That Bug You About Listicle Titles',
@@ -171,7 +171,7 @@ RSpec.describe Parameterizer do
   end
 
   context 'when organizing publication parameters' do
-    it 'returns the params as expected' do
+    xit 'returns the params as expected' do
       params = {
         id: 2,
         category_ids: [2],
