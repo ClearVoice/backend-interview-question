@@ -1,5 +1,6 @@
 require 'pry'
 require 'active_support'
+require 'active_support/core_ext'
 
 ###
 # The following is a toy application consisting of Categories, Writers,
