@@ -175,15 +175,17 @@ RSpec.describe Parameterizer do
     xit 'returns the params as expected' do
       params = {
         id: 2,
+        name: 'ESPN2',
         category_ids: [2],
         owner_id: 1,
-        url: 'https://differenturl.com'
+        url: 'https://espn2.com'
       }
       expect(Parameterizer.organize(params)).to eq({
         id: 2,
+        name: params[:name],
         categories: [CATEGORIES[2]],
         owner: USERS[1],
-        url: 'https://differenturl.com'
+        url: params[:url]
       })
     end
   end
